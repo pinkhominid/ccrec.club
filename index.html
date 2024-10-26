@@ -23,31 +23,81 @@
             background-color: darkgray;
             width: fit-content;
             background-image: url(hall.webp);
-            background-size: cover;
+            max-width: 100dvw;
+            min-width: 375px;
+            background-size: 100% auto;
             background-repeat: no-repeat; 
             background-blend-mode: multiply;
             margin: auto;
-            background-position-y: -100px;
             overflow: hidden;
-            height: 1100px;
-            border-bottom: 130px solid black;
+            border-bottom: 100px solid black;
+            position: relative;
         }
         #formality {
             display: block;
             mix-blend-mode: color-burn;
-            margin-bottom: 100px;
-            max-width: 100dvw;
+            max-width: 100%;
+        }
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+        }
+        #humanity :is(a, button) {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        #unum {
+            width: 12%;
+            height: 4%;
+            top: 15.5%;
+            right: 33%;
+        }
+        #dose {
+            width: 12%;
+            height: 4%;
+            top: 20%;
+            right: 33%;
+        }
+        #resig {
+            width: 31%;
+            height: 4%;
+            top: 24.5%;
+            right: 14%;
+        }
+        #zros {
+            width: 12%;
+            height: 4%;
+            top: 29.5%;
+            right: 33%;
+        }
+        #ccrc {
+            width: 77%;
+            height: 5%;
+            bottom: 9%;
+            right: 4%;
+        }
+        #mrc {
+            width: 25%;
+            height: 5%;
+            bottom: 2%;
+            left: 18%;
         }
     </style>
 </head>
 <body>
     <main>
         <section id="humanity">
-            <img id="formality" src="formality.webp" usemap="#formality-map" alt="Here at the Edge of Humanity We Are album art">
-            <map name="formality-map">
-                <area alt="Canton Ctr Rec Club" href="mailto:whomitmayconcern@ccrec.club" coords="600,973,125,933" shape="rect">
-                <area alt="Mite Records" href="mailto:shane@miterecords.com" coords="263,1043,120,1009" shape="rect">
-            </map>
+            <img alt="Here at the Edge of Humanity We Are album art" id="formality" src="formality.webp">
+            <button alt="Unum" id="unum"></button>
+            <button alt="Dose" id="dose"></button>
+            <button alt="Resignation" id="resig"></button>
+            <button alt="Zros" id="zros"></button>
+            <a alt="Canton Ctr Rec Club" id="ccrc" href="mailto:whomitmayconcern@ccrec.club"></a>
+            <a alt="Mite Records" id="mrc" href="mailto:shane@miterecords.com"></a>
         </section>
     </main>
 </body>
