@@ -97,6 +97,25 @@
             left: 18%;
         }
     </style>
+    <script type="module">
+        const tag = document.createElement('script');
+        tag.id = 'iframe-api';
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player("player", {
+                events: {
+                    "onReady": onPlayerReady
+                }
+            });
+        }
+        function onPlayerReady(event) {
+            console.log("player ready!");
+        }
+    </script>
 </head>
 <body>
     <main>
@@ -110,5 +129,10 @@
             <a alt="Mite Records" id="mrc" href="mailto:shane@miterecords.com"></a>
         </section>
     </main>
+    <iframe id="player"
+        width="0" height="0"
+        src="https://www.youtube.com/embed/C7Fxvzlkus0?enablejsapi=1"
+        frameborder="0"
+    ></iframe>
 </body>
 </html>
