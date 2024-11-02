@@ -99,50 +99,37 @@
     </style>
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
     <script type="importmap">
-    {
-      "imports": {
-        "howler": "https://ga.jspm.io/npm:howler@2.2.4/dist/howler.js"
-      }
-    }
+        {
+        "imports": {
+            "howler": "https://ga.jspm.io/npm:howler@2.2.4/dist/howler.js"
+        }
+        }
     </script>
     <script type="module">
-        import { Howl, Howler } from "howler";
-        var sound = new Howl({
+        import { Howl } from "howler";
+
+        const sound = new Howl({
             src: ["./humanity.mp3"],
             html5: true
         });
 
-        unum.onclick = function() {
+        const positions = [
+            [0, 817],
+            [818, 1227],
+            [1228, 1897],
+            [1898, 2374]
+        ];
+
+        window.toggle = (idx) => {
             const position = sound.seek();
+            const start = positions[idx][0];
+            const end = positions[idx][1];
+
             if (sound.playing()) {
-                if (position < 818) sound.pause();
-                else sound.seek(0);
+                if (position >= start && position <= end) sound.pause();
+                else sound.seek(start);
             } else {
-                if (position >= 818) sound.seek(0);
-                sound.play();
-            }
-        }
-        dose.onclick = function() {
-            const position = sound.seek();
-            if (sound.playing() && position >= 818 && position < 1228) sound.pause();
-            else {
-                sound.seek(818);
-                sound.play();
-            }
-        }
-        resig.onclick = function() {
-            const position = sound.seek();
-            if (sound.playing() && position >= 1228 && position < 1898) sound.pause();
-            else {
-                sound.seek(1228);
-                sound.play();
-            }
-        }
-        zros.onclick = function() {
-            const position = sound.seek();
-            if (sound.playing() && position >= 1898) sound.pause();
-            else {
-                sound.seek(1898);
+                if (position < start || position > end) sound.seek(start);
                 sound.play();
             }
         }
@@ -152,10 +139,10 @@
     <main>
         <section id="humanity">
             <img alt="Here at the Edge of Humanity We Are album art" id="formality" src="formality.webp">
-            <button alt="Unum" id="unum"></button>
-            <button alt="Dose" id="dose"></button>
-            <button alt="Resignation" id="resig"></button>
-            <button alt="Zros" id="zros"></button>
+            <button alt="Unum" id="unum" onclick="toggle(0)"></button>
+            <button alt="Dose" id="dose" onclick="toggle(1)"></button>
+            <button alt="Resignation" id="resig" onclick="toggle(2)"></button>
+            <button alt="Zros" id="zros" onclick="toggle(3)"></button>
             <a alt="Canton Ctr Rec Club" id="ccrc" href="mailto:whomitmayconcern@ccrec.club"></a>
             <a alt="Mite Records" id="mrc" href="mailto:shane@miterecords.com"></a>
         </section>
