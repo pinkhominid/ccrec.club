@@ -29,6 +29,18 @@
                 padding-right: min(0vmin, env(safe-area-inset-right));
             }
         }
+        .sr-only {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        ol, ul {
+            list-style: none;
+            margin: 0;
+        }
         #humanity {
             background-color: darkgray;
             width: fit-content;
@@ -43,7 +55,7 @@
             border-bottom: 100px solid black;
             position: relative;
         }
-        #formality {
+        #humanity img {
             display: block;
             mix-blend-mode: color-burn;
             max-width: 100%;
@@ -100,9 +112,9 @@
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
     <script type="importmap">
         {
-        "imports": {
-            "howler": "https://ga.jspm.io/npm:howler@2.2.4/dist/howler.js"
-        }
+            "imports": {
+                "howler": "https://ga.jspm.io/npm:howler@2.2.4/dist/howler.js"
+            }
         }
     </script>
     <script type="module">
@@ -114,13 +126,20 @@
         });
 
         const positions = [
-            [0, 817],
-            [818, 1227],
-            [1228, 1897],
-            [1898, 2374]
+            [0, 817], // unum
+            [818, 1227], // dose
+            [1228, 1897], // resignation
+            [1898, 2374] // zros
         ];
 
-        window.toggle = (idx) => {
+        humanity.querySelector("nav").addEventListener("click", e => {
+            const item = e.target.closest("li");
+            if (!item) return;
+            const idx = Array.from(item.parentElement.children).indexOf(item);
+            playToggle(idx);
+        });
+
+        function playToggle(idx) {
             const position = sound.seek();
             const start = positions[idx][0];
             const end = positions[idx][1];
@@ -137,15 +156,64 @@
 </head>
 <body>
     <main>
-        <section id="humanity">
-            <img alt="Here at the Edge of Humanity We Are album art" id="formality" src="formality.webp">
-            <button alt="Unum" id="unum" onclick="toggle(0)"></button>
-            <button alt="Dose" id="dose" onclick="toggle(1)"></button>
-            <button alt="Resignation" id="resig" onclick="toggle(2)"></button>
-            <button alt="Zros" id="zros" onclick="toggle(3)"></button>
-            <a alt="Canton Ctr Rec Club" id="ccrc" href="mailto:whomitmayconcern@ccrec.club"></a>
-            <a alt="Mite Records" id="mrc" href="mailto:shane@miterecords.com"></a>
-        </section>
+        <article id="humanity">
+            <header>
+                <h1 class="sr-only">Here at the Edge of Humanity We Are</h1>
+                <h2 class="sr-only">Canton Center Recreational Club</h2>
+            </header>
+
+            <img alt="Album art" src="formality.webp">
+
+            <nav>
+                <h1 class="sr-only">Tracks</h1>
+                <ol>
+                    <li>
+                        <span class="sr-only">Unum</span>
+                        <button id="unum">
+                            <span class="sr-only">Play or pause</span>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="sr-only">Dose</span>
+                        <button id="dose">
+                            <span class="sr-only">Play or pause</span>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="sr-only">Resignation</span>
+                        <button id="resig">
+                            <span class="sr-only">Play or pause</span>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="sr-only">Zros</span>
+                        <button id="zros">
+                            <span class="sr-only">Play or pause</span>
+                        </button>
+                    </li>
+                </ol>
+            </nav>
+
+            <section>
+                <h1 class="sr-only">Contact</h1>
+                <ul>
+                    <li>
+                        <a id="ccrc" href="mailto:whomitmayconcern@ccrec.club">
+                            <span class="sr-only">Canton Center Recreational Club</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="mrc" href="mailto:shane@miterecords.com">
+                            <span class="sr-only">Mite Records</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <footer>
+                <p class="sr-only">© 2024 Canton Center Recreational Club</p>
+            </footer>
+        </article>
     </main>
 </body>
 </html>
