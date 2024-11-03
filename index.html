@@ -127,9 +127,13 @@
     <script type="module">
         import { Howl } from "howler";
 
+        let fadeResolver;
+
         const sound = new Howl({
             src: ["./humanity.mp3"],
-            html5: true
+            html5: true,
+            pool: 1,
+            onfade: () => fadeResolver?.()
         });
 
         const positions = [
@@ -146,16 +150,31 @@
             playToggle(idx);
         });
 
-        function playToggle(idx) {
+        async function playToggle(idx) {
             const position = sound.seek();
             const start = positions[idx][0];
             const end = positions[idx][1];
 
             if (sound.playing()) {
-                if (position >= start && position <= end) sound.pause();
-                else sound.seek(start);
+                if (position >= start && position <= end) fade();
+                else {
+                    await fade();
+                    sound.seek(start);
+                    fade();
+                }
             } else {
                 if (position < start || position > end) sound.seek(start);
+                fade();
+            }
+        }
+
+        async function fade() {
+            if (sound.playing()) {
+                sound.fade(1, 0, 100);
+                await (new Promise(res => fadeResolver = res));
+                sound.pause();
+            } else {
+                sound.fade(0, 1, 100);
                 sound.play();
             }
         }
