@@ -137,17 +137,17 @@
         let fadeResolver;
 
         const sound = new Howl({
-            src: ["./humanity.mp3"],
+            src: ["./humanity6.mp3"],
             html5: true,
             pool: 1,
             onfade: () => fadeResolver?.()
         });
 
         const positions = [
-            [0, 817], // unum
-            [818, 1227], // dose
-            [1228, 1897], // resignation
-            [1898, 2374] // zros
+            [0, 777], // unum
+            [778, 1181], // dose
+            [1182, 1754], // resignation
+            [1755, 2247] // zros
         ];
 
         humanity.querySelector("nav").addEventListener("click", e => {
